@@ -7,9 +7,13 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  // Base path untuk deploy statis (GitHub Pages). Di Lovable tetap "/".
+  vite: { base: process.env["VITE_BASE"] ?? "/" },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
+    // Prerender halaman utama jadi HTML statis (dipakai deploy GitHub Pages).
+    pages: [{ path: "/", prerender: { enabled: true } }],
   },
 });
