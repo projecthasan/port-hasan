@@ -14,6 +14,7 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
     // Prerender halaman utama jadi HTML statis (dipakai deploy GitHub Pages).
-    pages: [{ path: "/", prerender: { enabled: true } }],
+    pages: [{ path: "/" }],
+    prerender: { enabled: true, crawlLinks: false, autoStaticPathsDiscovery: false },
   },
 });
