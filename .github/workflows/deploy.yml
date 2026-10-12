@@ -37,7 +37,6 @@ jobs:
 
       - name: Build static site
         env:
-          NITRO_PRESET: github_pages
           VITE_BASE: ${{ steps.base.outputs.base }}
         run: bun run build
 
@@ -45,7 +44,7 @@ jobs:
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .output/public
+          path: dist/client
 
   deploy:
     needs: build
