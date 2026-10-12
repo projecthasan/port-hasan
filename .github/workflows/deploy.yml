@@ -41,7 +41,12 @@ jobs:
         run: bun run build
 
       - name: Prepare static files
-        run: touch dist/client/.nojekyll && cp dist/client/index.html dist/client/404.html
+        run: |
+          if [ -f .output/public/index.html ]; then OUT=.output/public; else OUT=dist/client; fi
+          mkdir -p site && cp -r "$OUT"/. site/
+          touch site/.nojekyll
+          cp site/index.html site/404.html
+          ls site
 
       - uses: actions/configure-pages@v5
         with:
@@ -49,7 +54,7 @@ jobs:
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/client
+          path: site
 
   deploy:
     needs: build
